@@ -1,0 +1,8 @@
+newcar.df = read.csv('newcar.csv',header = TRUE)
+newcar.lg = glm(NEWCAR~INCOME+CAR.AGE,family = 'binomial',data = newcar.df)
+library(aod)
+print(wald.test(b = coef(newcar.lg), Sigma = vcov(newcar.lg),Terms = 2))
+newcar.base.lg = glm(NEWCAR~INCOME,family = 'binomial',data = newcar.df)
+library(lmtest)
+print(lrtest(newcar.base.lg,newcar.lg))
+print(predict(newcar.lg, newdata = data.frame(INCOME = 50,CAR.AGE = 3)))

@@ -1,0 +1,12 @@
+6
+6
+flytrap east 0 0
+flytrap east 1 0
+path_finder west 4 5
+path_finder north 0 5
+lrover south 3 1
+lrover south 5 3
+rrover west 4 0
+rrover south 0 4
+alt_rover north 4 4
+alt_rover west 3 3

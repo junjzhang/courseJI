@@ -1,0 +1,11 @@
+ifwall 4
+ifenemy 6
+ifsame 7
+hop
+go 4
+infect
+right
+left
+ifenemy 8
+hop
+go 1

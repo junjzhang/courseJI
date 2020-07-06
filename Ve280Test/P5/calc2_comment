@@ -1,0 +1,26 @@
+// Test boundary case of integer inputs.
+1231241531
+2100000000
+-
+p  // Print result for testing.
+1231244512
++
+p
+c
+-2100000000  2 - p  c  // Test negative boundary.
+2312
+-123
+*
+a
+21321321
+0
+*
+p
+c
+23
+5
+/  // Test division.
+p
+c
+q
+c 123 456 + p  // Test if inputs are ignored after q.

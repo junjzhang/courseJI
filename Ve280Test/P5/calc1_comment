@@ -1,0 +1,38 @@
+// Add comments to the test cases.
+2
+0
+/  // Test division by zero.
+a  // Test print all function when not empty.
+c  // Test clear function.
+2
+3
++  // Test addition.
+5
+*  // Test multiplication.
+p  // Print result for testing.
+// Test whether empty line will interrupt input.
+
+6	/ p  // Test division and input separated by tab.
+c
+a  // Test print all function when empty.
+p  // Test print function when empty.
+2
++  // Test addition when operands are not enough.
+-  // Test subtraction when operands are not enough.
+*  // Test multiplication when operands are not enough.
+/  // Test division when operands are not enough.
+d  // Test duplicate.
++
+p  // Print result for testing.
+c
+2
+3
+r  // Test reverse.
+a  // Print result for testing.
+c
+2
+n  // Test negate.
+p  // Print result for testing.
+c
+q
+

@@ -1,0 +1,8 @@
+SEQH
+A1
+SECH
+B1
+TEQO
+C1
+SECO
+D1

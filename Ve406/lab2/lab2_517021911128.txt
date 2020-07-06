@@ -1,0 +1,100 @@
+rm(list=ls())
+#Task1 part(a) ****************************
+deb.df=read.table(file='debonding.txt',header = TRUE)
+#Task1 part(b) ****************************
+deb.full.LM = lm(debonding~time+voltage+ph+temp,data = deb.df)
+#Task1 part(c) ****************************
+Rsqured = summary(deb.full.LM)$r.squared
+print(Rsqured)
+#Task1 part(d) ****************************
+plot(fitted.values(deb.full.LM), rstandard(deb.full.LM),
+    xlab = "Fitted Values", ylab = "Residuals", main = "Standardised Residual Plot",
+    sub = "lm(debonding~time+voltage+ph+temp)")
+abline(a = 0, b = 0, lty = 2, col = "red")
+#Task1 part(e) *****************************
+plot(deb.full.LM$residuals[-32],deb.full.LM$residuals[-1],
+     xlab = "Previous", ylab = "Residual")
+#Task1 part(f) *****************************
+acf(deb.full.LM$residuals,
+    main = "ACF")
+#Task1 part(g) *****************************
+qqnorm(deb.full.LM$residuals)
+qqline(deb.full.LM$residuals,lwd=2,col=2)
+#Task1 part(h) *****************************
+plot(deb.full.LM,which=2)
+#Task1 part(i) *****************************
+library(MASS)
+bc = boxcox(deb.full.LM)
+title("Box-Cox Plot", sub = "lm(debonding~time+voltage+ph+temp)")
+debonding.bc = deb.df$debonding**0.6
+deb.df = data.frame(deb.df,debonding.bc)
+#Task1 part(j) *****************************
+deb.full.bc.LM = lm(debonding.bc~time+voltage+ph+temp,data = deb.df)
+plot(fitted.values(deb.full.bc.LM), rstandard(deb.full.bc.LM),
+     xlab = "Fitted Values", ylab = "Residuals", main = "Standardised Residual Plot",
+     sub = "lm(debonding.bc~time+voltage+ph+temp)")
+abline(a = 0, b = 0, lty = 2, col = "red")
+plot(deb.full.bc.LM, which = 2)
+plot(deb.full.LM$residuals[-32],deb.full.bc.LM$residuals[-1],
+     xlab = "Previous", ylab = "Residual")
+#based on the three plot above, we can't say the transformed
+#is better
+#Task1 part(k) *****************************
+#Based on the sumary of tow model, the F-test suggest there is evidence
+#regression coefficients are not all zero.
+#Task1 part(l) ******************************
+deb.sub.LM = lm(debonding.bc~time+voltage+temp,data = deb.df)
+print(summary(deb.sub.LM)$adj.r.squared>summary(deb.full.LM)$adj.r.squared)
+deb.sub.bc.LM = lm(debonding.bc~time+voltage+temp,data = deb.df)
+print(summary(deb.sub.bc.LM)$adj.r.squared>summary(deb.full.bc.LM)$adj.r.squared)
+#Since the adjusted R squared of sub model without ph is smaller than the 
+#full model, we say ph is important in the presence of the other three regressors.
+#Task1 part(m) ******************************
+beta1_confi = confint(deb.full.LM,"time",level=0.95)
+print(beta1_confi)
+#Task1 part(n) ******************************
+pred.df = data.frame(time = 30,voltage = 1350,ph=4,temp=300)
+debond_confi = predict(deb.full.LM,pred.df,interval = "confidence",level = 0.95)
+print(debond_confi)
+#Task1 part(o) ******************************
+pred.df = data.frame(time = 30,voltage = 1350,ph=4,temp=300)
+debond_predi = predict(deb.full.LM,pred.df,interval = "prediction",level = 0.95)
+print(debond_predi)
+#Task1 part(p) ******************************
+deb.no.v.LM = lm(debonding~time+ph+temp,data = deb.df)
+deb.no.v.p.LM = lm(debonding~time+temp,data = deb.df)
+print(summary(deb.no.v.LM)$adj.r.squared>summary(deb.no.v.p.LM)$adj.r.squared)
+#The adjusted R-Squared can be used. Under assumption, if there're wo model with 
+#different regrssors, the larger the adjusted R-Square, the better the model.
+#No, it can only measure how a regressor contributes to the model. It can't measure
+#how good the transformation is.
+
+
+#********************************************
+#Task2 part(a) ******************************
+sim.df = read.csv(file = "sim_lab2.csv.bz2")
+sim.LM = lm(y~.+x1*x3+x1*x4+x2*x3+x2*x4+x3*x4, data = sim.df)
+print(summary(sim.LM))
+#In the data set, when x4 is C, there are not x3 whose value is c or d.
+#Task3 part(b) ******************************
+#No
+sim.x4.df = sim.df
+sim.x4.df$x4 = relevel(sim.x4.df$x4, ref = "B")
+sim.x4.LM = lm(y ~ . + x1 * x3 + x1 * x4 + x2 * x3 + x2 * x4 + x3 * x4, data = sim.x4.df)
+print(summary(sim.x4.LM))
+#Based on the p-value of terms contain C, we can't say there are significant difference taking B and C
+#for x4.
+#Task3 part(c) ******************************
+anova(sim.LM)
+#The null hypothesis is that the coefficient of corresponding term is zero.
+#So, this large P value means that the term contributes to the response and should
+#be deleted. In the output, it means x3, x1:x3, x2:x3,x2:x4,x3:x4 own a high risk to
+#have no association with the response.
+#Task3 part(c) ******************************
+source("lab2_func.R")
+f.vec = replicate(1e4, sim.p.func(n=200))
+sim.plot()
+#We can learn that without testing the assumption, even with small p value for most of the terms, the model can also
+#be bad. So, the first step is to test whether assumption is corect.
+
+

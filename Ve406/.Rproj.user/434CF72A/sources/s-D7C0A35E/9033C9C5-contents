@@ -1,0 +1,18 @@
+#final model
+if (!require("quantmod")) install.packages("quantmod")
+library(quantmod)
+if (!require("arfima")) install.packages("arfima")
+library(arfima)
+
+#data process
+getSymbols("TSLA",src="yahoo",from = "2016-11-27", to = '2019-12-05')
+TSLA.df = data.frame(TSLA)
+TSLA.df$Close.Date = as.Date(row.names(TSLA.df))
+close.ts = ts(TSLA.df$TSLA.Close)
+#model
+model = arfima::arfima(close.ts,order = c(0,1,0),seasonal = list(order = c(2,1,1),period = 100),cpus = 4)
+#predict
+y_predict = predict(model,5)[[1]]$Forecast
+print(y_predict)
+#save model
+write(y_predict,file = "./group_3.txt",sep = "\n")

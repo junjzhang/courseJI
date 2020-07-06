@@ -1,0 +1,12 @@
+library(minpack.lm)
+semi.df = data.frame(read.table("./semi.txt",header = TRUE))
+
+semi.NL = nlsLM(Reactivity ~ par1*(1-exp(-exp(par2+par3*Thickness))),data = semi.df)
+print(coef(semi.NL))
+y_predict = predict(semi.NL)
+
+plot(semi.df$Thickness,semi.df$Reactivity,
+     type="l",col='red',xlab = 'Thickness', ylab = 'Reactivity')
+points(semi.df$Thickness,semi.df$Reactivity,col = 'red')
+lines(semi.df$Thickness,y_predict,col="green")
+points(semi.df$Thickness,y_predict,col="green")

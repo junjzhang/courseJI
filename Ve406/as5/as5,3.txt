@@ -1,0 +1,4 @@
+N.df = data.frame(N = c(22,146,226,47,52),x = c(247289,948816,1443741,776733,70716))
+N.pm = glm(N~x+0, data = N.df, family = poisson)
+print(1- pchisq(N.pm$deviance,N.pm$df.residual))
+print(summary(N.pm))

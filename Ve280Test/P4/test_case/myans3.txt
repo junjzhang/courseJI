@@ -1,0 +1,124 @@
+    1    2    3    4
+  +----+----+----+----+
+a |    |    |    |    |
+  |    |    |    |    |
+  +----+----+----+----+
+b |    |    |    |    |
+  |    |    |    |    |
+  +----+----+----+----+
+c |    |    |    |    |
+  |    |    |    |    |
+  +----+----+----+----+
+d |    |    |    |    |
+  |    |    |    |    |
+  +----+----+----+----+
+
+Available:
+SB SB SB SB SE SE SE SE TB TB TB TB TE TE TE TE
+CH CO QH QO CH CO QH QO CH CO QH QO CH CO QH QO
+
+Player 1's turn to select a piece:
+Enter a piece:TBCH selected.
+Player 2's turn to select a square:
+Enter a position:A1 selected.
+    1    2    3    4
+  +----+----+----+----+
+a | TB |    |    |    |
+  | CH |    |    |    |
+  +----+----+----+----+
+b |    |    |    |    |
+  |    |    |    |    |
+  +----+----+----+----+
+c |    |    |    |    |
+  |    |    |    |    |
+  +----+----+----+----+
+d |    |    |    |    |
+  |    |    |    |    |
+  +----+----+----+----+
+
+Available:
+SB SB SB SB SE SE SE SE TB TB TB TE TE TE TE
+CH CO QH QO CH CO QH QO CO QH QO CH CO QH QO
+
+Player 2's turn to select a piece:
+Enter a piece:asdadasdadas is an invalid input.
+Enter a piece:asdasdasdasdasda is an invalid input.
+Enter a piece:asdasdasdodfndsfivbdfuivbdfuibvufibi is an invalid input.
+Enter a piece:assdoiajdid9302309j239d0j39d is an invalid input.
+Enter a piece:TEQH selected.
+Player 1's turn to select a square:
+Enter a position:jjjjjj is an invalid input.
+Enter a position:A1 is not empty.
+Enter a position:A1 is not empty.
+Enter a position:A2 selected.
+    1    2    3    4
+  +----+----+----+----+
+a | TB | TE |    |    |
+  | CH | QH |    |    |
+  +----+----+----+----+
+b |    |    |    |    |
+  |    |    |    |    |
+  +----+----+----+----+
+c |    |    |    |    |
+  |    |    |    |    |
+  +----+----+----+----+
+d |    |    |    |    |
+  |    |    |    |    |
+  +----+----+----+----+
+
+Available:
+SB SB SB SB SE SE SE SE TB TB TB TE TE TE
+CH CO QH QO CH CO QH QO CO QH QO CH CO QO
+
+Player 1's turn to select a piece:
+Enter a piece:TBCH is already used.
+Enter a piece:SECH selected.
+Player 2's turn to select a square:
+Enter a position:asdasd is an invalid input.
+Enter a position:SBCH is an invalid input.
+Enter a position:A3 selected.
+    1    2    3    4
+  +----+----+----+----+
+a | TB | TE | SE |    |
+  | CH | QH | CH |    |
+  +----+----+----+----+
+b |    |    |    |    |
+  |    |    |    |    |
+  +----+----+----+----+
+c |    |    |    |    |
+  |    |    |    |    |
+  +----+----+----+----+
+d |    |    |    |    |
+  |    |    |    |    |
+  +----+----+----+----+
+
+Available:
+SB SB SB SB SE SE SE TB TB TB TE TE TE
+CH CO QH QO CO QH QO CO QH QO CH CO QO
+
+Player 2's turn to select a piece:
+Enter a piece:sbqh is an invalid input.
+Enter a piece:SBQH selected.
+Player 1's turn to select a square:
+Enter a position:asdasdad is an invalid input.
+Enter a position:A4 selected.
+    1    2    3    4
+  +----+----+----+----+
+a | TB | TE | SE | SB |
+  | CH | QH | CH | QH |
+  +----+----+----+----+
+b |    |    |    |    |
+  |    |    |    |    |
+  +----+----+----+----+
+c |    |    |    |    |
+  |    |    |    |    |
+  +----+----+----+----+
+d |    |    |    |    |
+  |    |    |    |    |
+  +----+----+----+----+
+
+Available:
+SB SB SB SE SE SE TB TB TB TE TE TE
+CH CO QO CO QH QO CO QH QO CH CO QO
+
+Player 1 has won!

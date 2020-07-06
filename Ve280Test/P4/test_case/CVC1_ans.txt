@@ -1,0 +1,245 @@
+     1    2    3    4
+   +----+----+----+----+
+ a |    |    |    |    |
+   |    |    |    |    |
+   +----+----+----+----+
+ b |    |    |    |    |
+   |    |    |    |    |
+   +----+----+----+----+
+ c |    |    |    |    |
+   |    |    |    |    |
+   +----+----+----+----+
+ d |    |    |    |    |
+   |    |    |    |    |
+   +----+----+----+----+
+
+Available:
+SB SB SB SB SE SE SE SE TB TB TB TB TE TE TE TE
+CH CO QH QO CH CO QH QO CH CO QH QO CH CO QH QO
+
+Player 1's turn to select a piece:
+TBCH selected.
+
+Player 2's turn to select a square:
+B2 selected.
+
+     1    2    3    4
+   +----+----+----+----+
+ a |    |    |    |    |
+   |    |    |    |    |
+   +----+----+----+----+
+ b |    | TB |    |    |
+   |    | CH |    |    |
+   +----+----+----+----+
+ c |    |    |    |    |
+   |    |    |    |    |
+   +----+----+----+----+
+ d |    |    |    |    |
+   |    |    |    |    |
+   +----+----+----+----+
+
+Available:
+SB SB SB SB SE SE SE SE TB TB TB TE TE TE TE
+CH CO QH QO CH CO QH QO CO QH QO CH CO QH QO
+
+Player 2's turn to select a piece:
+TEQO selected.
+
+Player 1's turn to select a square:
+D4 selected.
+
+     1    2    3    4
+   +----+----+----+----+
+ a |    |    |    |    |
+   |    |    |    |    |
+   +----+----+----+----+
+ b |    | TB |    |    |
+   |    | CH |    |    |
+   +----+----+----+----+
+ c |    |    |    |    |
+   |    |    |    |    |
+   +----+----+----+----+
+ d |    |    |    | TE |
+   |    |    |    | QO |
+   +----+----+----+----+
+
+Available:
+SB SB SB SB SE SE SE SE TB TB TB TE TE TE
+CH CO QH QO CH CO QH QO CO QH QO CH CO QH
+
+Player 1's turn to select a piece:
+SBQH selected.
+
+Player 2's turn to select a square:
+C1 selected.
+
+     1    2    3    4
+   +----+----+----+----+
+ a |    |    |    |    |
+   |    |    |    |    |
+   +----+----+----+----+
+ b |    | TB |    |    |
+   |    | CH |    |    |
+   +----+----+----+----+
+ c | SB |    |    |    |
+   | QH |    |    |    |
+   +----+----+----+----+
+ d |    |    |    | TE |
+   |    |    |    | QO |
+   +----+----+----+----+
+
+Available:
+SB SB SB SE SE SE SE TB TB TB TE TE TE
+CH CO QO CH CO QH QO CO QH QO CH CO QH
+
+Player 2's turn to select a piece:
+TBCO selected.
+
+Player 1's turn to select a square:
+C4 selected.
+
+     1    2    3    4
+   +----+----+----+----+
+ a |    |    |    |    |
+   |    |    |    |    |
+   +----+----+----+----+
+ b |    | TB |    |    |
+   |    | CH |    |    |
+   +----+----+----+----+
+ c | SB |    |    | TB |
+   | QH |    |    | CO |
+   +----+----+----+----+
+ d |    |    |    | TE |
+   |    |    |    | QO |
+   +----+----+----+----+
+
+Available:
+SB SB SB SE SE SE SE TB TB TE TE TE
+CH CO QO CH CO QH QO QH QO CH CO QH
+
+Player 1's turn to select a piece:
+SBCO selected.
+
+Player 2's turn to select a square:
+C2 selected.
+
+     1    2    3    4
+   +----+----+----+----+
+ a |    |    |    |    |
+   |    |    |    |    |
+   +----+----+----+----+
+ b |    | TB |    |    |
+   |    | CH |    |    |
+   +----+----+----+----+
+ c | SB | SB |    | TB |
+   | QH | CO |    | CO |
+   +----+----+----+----+
+ d |    |    |    | TE |
+   |    |    |    | QO |
+   +----+----+----+----+
+
+Available:
+SB SB SE SE SE SE TB TB TE TE TE
+CH QO CH CO QH QO QH QO CH CO QH
+
+Player 2's turn to select a piece:
+TEQH selected.
+
+Player 1's turn to select a square:
+A3 selected.
+
+     1    2    3    4
+   +----+----+----+----+
+ a |    |    | TE |    |
+   |    |    | QH |    |
+   +----+----+----+----+
+ b |    | TB |    |    |
+   |    | CH |    |    |
+   +----+----+----+----+
+ c | SB | SB |    | TB |
+   | QH | CO |    | CO |
+   +----+----+----+----+
+ d |    |    |    | TE |
+   |    |    |    | QO |
+   +----+----+----+----+
+
+Available:
+SB SB SE SE SE SE TB TB TE TE
+CH QO CH CO QH QO QH QO CH CO
+
+Player 1's turn to select a piece:
+TECO selected.
+
+Player 2's turn to select a square:
+D1 selected.
+
+     1    2    3    4
+   +----+----+----+----+
+ a |    |    | TE |    |
+   |    |    | QH |    |
+   +----+----+----+----+
+ b |    | TB |    |    |
+   |    | CH |    |    |
+   +----+----+----+----+
+ c | SB | SB |    | TB |
+   | QH | CO |    | CO |
+   +----+----+----+----+
+ d | TE |    |    | TE |
+   | CO |    |    | QO |
+   +----+----+----+----+
+
+Available:
+SB SB SE SE SE SE TB TB TE
+CH QO CH CO QH QO QH QO CH
+
+Player 2's turn to select a piece:
+SECH selected.
+
+Player 1's turn to select a square:
+D2 selected.
+
+     1    2    3    4
+   +----+----+----+----+
+ a |    |    | TE |    |
+   |    |    | QH |    |
+   +----+----+----+----+
+ b |    | TB |    |    |
+   |    | CH |    |    |
+   +----+----+----+----+
+ c | SB | SB |    | TB |
+   | QH | CO |    | CO |
+   +----+----+----+----+
+ d | TE | SE |    | TE |
+   | CO | CH |    | QO |
+   +----+----+----+----+
+
+Available:
+SB SB SE SE SE TB TB TE
+CH QO CO QH QO QH QO CH
+
+Player 1's turn to select a piece:
+SEQO selected.
+
+Player 2's turn to select a square:
+D3 selected.
+
+     1    2    3    4
+   +----+----+----+----+
+ a |    |    | TE |    |
+   |    |    | QH |    |
+   +----+----+----+----+
+ b |    | TB |    |    |
+   |    | CH |    |    |
+   +----+----+----+----+
+ c | SB | SB |    | TB |
+   | QH | CO |    | CO |
+   +----+----+----+----+
+ d | TE | SE | SE | TE |
+   | CO | CH | QO | QO |
+   +----+----+----+----+
+
+Available:
+SB SB SE SE TB TB TE
+CH QO CO QH QH QO CH
+
+Player 2 has won!

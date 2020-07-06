@@ -1,0 +1,323 @@
+---
+title: 
+  "Lab 3"
+author: 
+  "Ve406"
+date: 
+  'Due: __18 November 2018, 11:40am__'
+header-inclues:
+  - \usepackage{amsmath}
+  - \usepackage{amssymb}
+  - \usepackage{amsthm}  
+  - \usepackage{amsthm}  
+  - \usepackage{listings}
+output: 
+  pdf_document:
+  fig_width: 6
+  fig_height: 6
+---
+  
+
+
+```{r echo=FALSE}
+setwd("C:/Users/lenovo/Desktop/ve406_lab3")
+working.directory = getwd()
+chem_pro.csv = paste(working.directory, "/chem_pro.csv", sep = "")
+USA_real_estate.txt = paste(working.directory, "/USA_real_estate.txt", sep = "")
+```
+
+* This lab is about unususal points, heteroskedasticity and correlated errors. 
+
+-----
+
+# Task 1 (8 points)
+
+The data `chem_pro` is the dataset about a particular chemical process we considered in class. 
+
+## (a) (1 point)
+
+Succesfully render this file. 
+```{r}
+chem_pro.df=read.table(chem_pro.csv,sep=",",header=TRUE)
+
+```
+
+
+## (b) (1 point)
+
+Clean `chem_pro.df` according to what we have discussed in class. 
+
+
+
+```{r chemical process data  results = 'hide'}
+chem_pro.df = read.table(file = chem_pro.csv, sep = ",", header = TRUE)
+str(chem_pro.df)
+levels(chem_pro.df$ratio)
+ratio_typo=which(chem_pro.df$ratio=="0>163")
+ratio_typo
+chem_pro.df$ratio=as.character(chem_pro.df$ratio)
+chem_pro.df$ratio[ratio_typo]="0.163"
+chem_pro.df$ratio=as.double(chem_pro.df$ratio)
+chem_pro.df$ratio
+lapply(chem_pro.df,boxplot)
+conversion_typo=which(chem_pro.df$conversion<=-10)
+ratio_unusual=which(chem_pro.df$ratio<=0.05)
+conversion_typo;ratio_unusual
+chem_pro.df$conversion[conversion_typo]=-chem_pro.df$conversion[conversion_typo]
+```
+## (c) (1 point)
+
+Produce the pairs plot of all the variables in `chem_pro.df` like the one I showed in class. 
+
+```{r}
+panel.hist <- function(x, ...)
+{
+    usr <- par("usr"); on.exit(par(usr))
+    par(usr = c(usr[1:2], 0, 1.5) )
+    h <- hist(x, plot = FALSE)
+    breaks <- h$breaks; nB <- length(breaks)
+    y <- h$counts; y <- y/max(y)
+    rect(breaks[-nB], 0, breaks[-1], y, col = "cyan", ...)
+}
+panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...)
+{
+    usr <- par("usr"); on.exit(par(usr))
+    par(usr = c(0, 1, 0, 1))
+    r <- abs(cor(x, y))
+    txt <- format(c(r, 0.123456789), digits = digits)[1]
+    txt <- paste0(prefix, txt)
+    if(missing(cex.cor)) cex.cor <- 0.8/strwidth(txt)
+    text(0.5, 0.5, txt, cex = cex.cor * r)
+}
+pairs(chem_pro.df,lower.panel = panel.cor,upper.panel = panel.smooth,diag.panel = panel.hist)
+```
+
+## (d) (1 point)
+
+Construct the following model, then produce all the usual regression diagnostic plots for `chem_pro.LM`.
+
+```{r chem_pro.lm, results = 'hide'}
+chem_pro.LM = lm(yield~conversion+flow+ratio, data = chem_pro.df)
+```
+
++ Standardised residual Vs fitted value 
+```{r}
+fvs=fitted.values(chem_pro.LM)
+sres=rstandard(chem_pro.LM)
+plot(x=fvs,y=sres,xlab = "fitted values",ylab = "standardized residuals")
+abline(0,0,col="red")
+```
++ Standardised residual Vs conversion 
+```{r}
+plot(x=chem_pro.df$conversion,y=sres,xlab="conversion",ylab = "standardized residual")
+abline(0,0,col="red")
+```
++ Standardised residual Vs flow
+```{r}
+plot(x=chem_pro.df$flow,y=sres,xlab="flow",ylab = "standardized residual")
+abline(0,0,col="red")
+```
++ Standardised residual Vs ratio 
+```{r}
+plot(x=chem_pro.df$ratio,y=sres,xlab="ratio",ylab = "standardized residual")
+abline(0,0,col="red")
+```
++ Residual Vs Previous Residual 
+```{r}
+res=residuals(chem_pro.LM)
+res.previous=res[-length(res)]
+plot(x=res.previous,y=res[-1],xlab="previous",ylab="residual")
+```
++ Residual Autcorrelation (ACF)
+```{r}
+acf(res,type="correlation")
+```
++ Q-Q Normal
+Q-Q Normal for residuals
+```{r}
+qqnorm(res)
+qqline(res,col="red")
+```
+Q-Q Normal for standardized residuals
+```{r}
+qqnorm(sres)
+qqline(sres,col="red")
+
+```
+
+## (e) (1 point)
+
+Compute VIF for `chem_pro.LM` according to the definition, then compare it with the values found in class. 
+```{r}
+Xminus1=chem_pro.df[,-1]
+VIF=diag(solve(cor(Xminus1)))
+VIF
+```
+
+## (f) (1 point)
+
+Produce a boxplot of Leverage Scores for `chem_pro.LM` like the one I showed in class. 
+```{r}
+pii.vec=hatvalues(chem_pro.LM)
+boxplot(pii.vec,ylab="Leverage scores")
+```
+## (g) (1 point)
+
+Produce the plot of standardised residual Vs leverage score for `chem_pro.LM` like the one I showed in class. 
+```{r}
+plot(x=pii.vec,y=sres,xlab = "Leverage Score",ylab="Standardized Residuals",type="n")
+text(x =pii.vec, y = sres, labels = 1:44, font = 1)
+abline(0,0,col="red")
+```
+## (h) (1 point)
+
+Produce a table of influence measures for `chem_pro.LM` like the one I showed in class. 
+```{r}
+im=influence.measures(chem_pro.LM)
+im
+```
+
+# Task 2 (6 points)
+
+The data `USA_real_estate` is about the median price of houses sold in different areas of USA in 2006. 
+
+Variable | Description 
+---------|---------
+`mppsf` | Median Price Per Square Foot
+`ns`    | Number Homes from which the Median Price is computed
+`pnh`   | Percentage of Homes sold that are build in 2005 or 2006
+`pms`   | Percentage of Mortgage Foreclosure Sales
+
+Each data point is for one such area of USA in 2006. 
+
+## (a) (1 point) 
+
+Check for the presence of heteroskedasticity in the model `usare.LM`. 
+
+```{r first model, results = 'hide'}
+usare.df = read.table(file = USA_real_estate.txt, sep = "", header = TRUE)
+usare.LM = lm(mppsf~pnh+pms, data = usare.df)
+fvs=fitted.values(usare.LM)
+sres=rstandard(usare.LM)
+plot(x=fvs,y=sres,xlab = "fitted values",ylab = "standardized residuals")
+abline(0,0,col="red")
+```
+From the plot, we can clearly see the presence of heteroskedasticity.
+## (b) (1 point)
+
+Estiamte the weights for using weighted least squares for the following linear model
+  \[
+    \text{mppsf}_i = \beta_0 + \beta_1 \text{pnh}_i + \beta_2 \text{pms}_i  + \sigma_i \varepsilon
+  \]
+```{r}
+z=2*log(abs(usare.LM$residuals))
+auxiliary.LM=lm(z~pnh+pms,data=usare.df)
+w.vec=exp(auxiliary.LM$fitted.values)
+```
+
+
+## (c) (1 point)
+
+Construct the linear model using weighted least squares with your estimated weights, name it `usare.WLS`. 
+
+  \[
+    \text{mppsf}_i = \beta_0 + \beta_1 \text{pnh}_i + \beta_2 \text{pms}_i  + \sigma_i \varepsilon
+  \]
+```{r}
+usare.WLS=lm(mppsf~pnh+pms, weights=w.vec,data = usare.df)
+```
+
+## (d) (1 point)
+
+Explain why `ns` might also be an appropriate estimate for the weights. 
+
+Because ns the number from which the median is obtained, we know the variance tends to be smaller when ns is larger. Because for each weight $\frac{1}{\sigma_{i}^2}$, it becomes larger when $\sigma_{i}^2$ is smaller, we have a reason to guess `ns` might be an appropriate estimate for the weights.
+
+## (e) (1 point)
+
+Construct the linear model using weighted least squares with the weights based on `ns`, name it `usare.ns.WLS`.   
+  \[
+    \text{mppsf}_i = \beta_0 + \beta_1 \text{pnh}_i + \beta_2 \text{pms}_i  + \sigma_i \varepsilon
+  \]
+```{r}
+usare.ns.WLS=lm(mppsf~pnh+pms, weights=ns,data = usare.df)
+```
+
+
+## (f) (1 point)
+
+Compare `usare.WLS` with `usare.ns.WLS`. Which of the two models do you prefer? Explain your answer. 
+```{r}
+summary(usare.WLS)
+summary(usare.ns.WLS)
+```
+I prefer `usare.ns.WLS`. This is because (i) pms variabe in usare.WLS is not statistically significant but in usare.ns.WLS it becomes much more significant; (ii) the adjusted R-squared for usare.ns.WLS is 0.1243 while the adjusted R-squared for usare.WLS is 0.071. The former is larger. Therefore, I prefer `usare.ns.WLS`.
+
+# Task 3 (5 points)
+
+The data `grossboxoffice` is about yearly gross box office receipts from moives screened in Australia. 
+
+## (a) (1 point)
+
+Load the data file `grossboxoffice.txt` into R, and construct the following model, name it as `gbo.LM`. 
+  \[
+    \text{GrossBoxOffice}_i = \beta_0 + \beta_1 \text{year}_i  + \varepsilon
+  \]
+
+Comment on the validity of `gbo.LM`.  
+```{r}
+gbo.df = read.table(file = "grossboxoffice.txt", sep = "", header = TRUE)
+gbo.LM=lm(GrossBoxOffice~year,data=gbo.df)
+fvs=fitted.values(gbo.LM)
+sres=rstandard(gbo.LM)
+plot(x=fvs,y=sres,xlab = "fitted values",ylab = "standardized residuals")
+abline(0,0,col="red")
+
+```
+From the fitted vs. sres plot, we can clearly see the assumption of independence is violated as there is a non-random pattern showing.
+Therefore,`gbo.LM` might not be a valid model.
+## (b) (1 point)
+
+Explore the possibility of using AR(1), AR(2), and AR(3). 
+```{r, results='hide'}
+gbo.AR1=arima(gbo.df$GrossBoxOffice,order=c(1,0,0),xreg=gbo.df$year)
+tsdiag(gbo.AR1)
+gbo.AR2=arima(gbo.df$GrossBoxOffice,order=c(2,0,0),xreg=gbo.df$year)
+tsdiag(gbo.AR2)
+gbo.AR3=arima(gbo.df$GrossBoxOffice,order=c(3,0,0),xreg=gbo.df$year)
+tsdiag(gbo.AR3)
+```
+From the three plots of each AR model, we can see that the p-value ljung box-statistics plot is better for AR(1) comparable with the other two, and the standardized residuals and acf plot seem acceptable. Therefore, AR(1) can be the best choice.
+
+## (c) (1 point)
+
+Obtain a final model for predicting `GrossBoxOffice` for `year=1975`, name it as `gbo.final.M`.
+```{r}
+gbo.final.M=arima(gbo.df$GrossBoxOffice,order=c(1,0,0),xreg=gbo.df$year)
+predict1975 = predict(gbo.final.M,newxreg=1975)
+predict1975
+```
+## (d) (1 point)
+
+Produce diagnostic plots to justify your choice of model. 
+```{r}
+res=residuals(gbo.AR1)
+res.previous=res[-length(res)]
+plot(x=res.previous,y=res[-1],xlab="previous",ylab="residual")
+acf(res,type="correlation")
+qqnorm(gbo.final.M$residuals)
+qqline(gbo.final.M$residuals)
+```
+## (e) (1 point)
+
+Describe any weakness in your `gbo.final.M`. 
+Our model only takes into account AR effects. Instead, we could use ARMA to further investigate if there's a better model. Also, from the previous plot of the standardised residuals, we find a quadratic or cubic correlation. We didn't take that part into consideration either.
+
+## (f) (1 point)
+
+Use your model `gbo.final.M` to identify any outliers. 
+```{r}
+
+```
+
+

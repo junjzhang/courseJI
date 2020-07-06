@@ -1,0 +1,345 @@
+---
+title: 
+  "Lab 3"
+author: 
+  "Junjie Zhang 517021911128"
+header-inclues:
+  - \usepackage{amsmath}
+  - \usepackage{amssymb}
+  - \usepackage{amsthm}  
+  - \usepackage{amsthm}  
+  - \usepackage{listings}
+output: 
+  pdf_document:
+  fig_width: 6
+  fig_height: 6
+---
+```{r echo=FALSE}
+# Don't forget to insert your working directory here!
+# setwd("~/Desktop/")
+working.directory = getwd()
+chem_pro.csv = paste(working.directory, "/chem_pro.csv", sep = "")
+USA_real_estate.txt = paste(working.directory, "/USA_real_estate.txt", sep = "")
+library(knitr)
+```
+-----
+
+# Task 1 (8 points)
+
+## (a) (1 point)
+
+Succesfully render this file. 
+
+
+## (b) (1 point)
+
+```{r chemical process data, results = 'hide'}
+chem_pro.df = read.table(file = chem_pro.csv, sep = ",", header = TRUE)
+```
+```{r}
+str(chem_pro.df)
+```
+It can be seen that there are three regressors, which are `yield`, `conversion`, `flow` and `ratio`, and one response, which is `yield`. And since the ratio is factor, there may be some issues.
+
+### Clean `ratio`
+
+```{r}
+levels(chem_pro.df$ratio)
+```
+It can be seen that the last element in ratio seems to be a typo.
+```{r}
+ratio_typo = which (chem_pro.df$ratio=="0>163")
+chem_pro.df$ratio = as.character(chem_pro.df$ratio)
+chem_pro.df$ratio[ratio_typo] = "0.163"
+chem_pro.df$ratio = as.double(chem_pro.df$ratio)
+```
+We then keep a record on the typo and then correct it.
+Then we take a close look at the data again.
+```{r}
+kable(summary(chem_pro.df))
+```
+
+It seems like that the $min$ of `conversion` is far from it's $1st\ Qu$, there may be some issues. And the flow seems to be ok.
+
+### Clean `conversion`
+
+```{r}
+conversion_typo = which(chem_pro.df$conversion<=-10)
+chem_pro.df$conversion[conversion_typo] = -chem_pro.df$conversion[conversion_typo]
+```
+We keep record of the possible typo in `conversion` and correct it.
+
+## (c) (1 point)
+```{r, fig.align="center", out.width="80%", out.height='80%'}
+panel.hist <- function(x, ...)
+{
+	usr <- par("usr"); on.exit(par(usr))
+	par(usr = c(usr[1:2], 0, 1.5) )
+	h <- hist(x, plot = FALSE)
+	breaks <- h$breaks; nB <- length(breaks)
+	y <- h$counts; y <- y/max(y)
+	rect(breaks[-nB], 0, breaks[-1], y, col = "cyan", ...)
+}
+panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...)
+{
+    usr <- par("usr"); on.exit(par(usr))
+    par(usr = c(0, 1, 0, 1))
+    r <- abs(cor(x, y))
+    txt <- format(c(r, 0.123456789), digits = digits)[1]
+    txt <- paste0(prefix, txt)
+    if(missing(cex.cor)) cex.cor <- 0.8/strwidth(txt)
+    text(0.5, 0.5, txt, cex = cex.cor * r)
+}
+pairs(chem_pro.df[1:4],upper.panel = panel.smooth,lower.panel = panel.cor,
+      diag.panel = panel.hist)
+```
+
+## (d) (1 point)
+
+```{r chem_pro.lm, results = 'hide'}
+chem_pro.LM = lm(yield~conversion+flow+ratio, data = chem_pro.df)
+```
+
++ Standardised residual Vs fitted value 
+
+```{r, fig.align="center", out.width="70%", out.height='70%'}
+plot(fitted.values(chem_pro.LM),rstandard(chem_pro.LM), 
+     xlab = "Fitted value",ylab = "Standardised Residuals")
+abline(a = 0, b = 0, lty = 2, col = "red")
+```
+
++ Standardised residual Vs conversion 
+
+```{r, fig.align="center", out.width="70%", out.height='70%'}
+plot(chem_pro.df$conversion,rstandard(chem_pro.LM), 
+     xlab = "Conversion",ylab = "Standardised Residuals")
+abline(a = 0, b = 0, lty = 2, col = "red")
+```
+
++ Standardised residual Vs flow
+
+```{r, fig.align="center", out.width="70%", out.height='70%'}
+plot(chem_pro.df$flow,rstandard(chem_pro.LM), xlab = "Flow",ylab = "Standardised Residuals")
+abline(a = 0, b = 0, lty = 2, col = "red")
+```
+
++ Standardised residual Vs ratio 
+
+
+```{r, fig.align="center", out.width="70%", out.height='70%'}
+plot(chem_pro.df$ratio,rstandard(chem_pro.LM), 
+     xlab = "Ratio",ylab = "Standardised Residuals")
+abline(a = 0, b = 0, lty = 2, col = "red")
+```
+
++ Residual Vs Previous Residual 
+
+```{r, fig.align="center", out.width="70%", out.height='70%'}
+plot(chem_pro.LM$residuals[-length(chem_pro.LM$residuals)],
+     chem_pro.LM$residuals[-1],
+     xlab = "Previous", ylab = "Residual")
+```
+
++ Residual Autcorrelation (ACF)
+
+```{r, fig.align="center", out.width="70%", out.height='70%'}
+acf(chem_pro.LM$residuals, main = "ACF")
+```
+
++ Q-Q Normal
+
+```{r, fig.align="center", out.width="70%", out.height='70%'}
+qqnorm(chem_pro.LM$residuals)
+qqline(chem_pro.LM$residuals,lwd=2,col=2)
+```
+
+## (e) (1 point)
+
+```{r}
+correlation.matrix = cor(chem_pro.df[-1])
+temp = solve(correlation.matrix)
+VIF.vec = c(temp[1,1],temp[2,2],temp[3,3])
+names(VIF.vec) = c("conversion", "flow", "ratio")
+kable(VIF.vec,col.names = "VIF")
+```
+
+It is the same as what we found in the class.
+
+## (f) (1 point)
+
+```{r, fig.align="center", out.width="70%", out.height='70%'}
+pii.vec = hatvalues(chem_pro.LM)
+boxplot(pii.vec, xlab = "chem_pro.LM", ylab = "Leverage Scores", 
+        ylim = c(0.05, 0.3))
+excessive <- 3 * (3 + 1) / 44
+abline(a = mean(pii.vec), b = 0, lty = 2, col = "blue")
+abline(a = excessive, b = 0, lty = 2, col = "red")
+```
+
+## (g) (1 point)
+
+```{r, fig.align="center", out.width="70%", out.height='70%'}
+plot(hatvalues(chem_pro.LM),rstandard(chem_pro.LM), xlab = "Leverage",
+     ylab = "Standardised Residuals")
+text(x=hatvalues(chem_pro.LM),y=rstandard(chem_pro.LM),labels = 1:44,font=1)
+abline(a=0,b=0,lty=2,col="red")
+```
+
+## (h) (1 point)
+
+```{r}
+im = influence.measures(chem_pro.LM)
+im
+```
+
+# Task 2 (6 points)
+
+## (a) (1 point) 
+
+```{r first model, results = 'hide'}
+usare.df = read.table(file = USA_real_estate.txt, sep = "", header = TRUE)
+usare.LM = lm(mppsf~pnh+pms, data = usare.df)
+```
+
+```{r,fig.align="center", out.width="70%", out.height='70%'}
+usare.df = read.table(file = USA_real_estate.txt, sep = "", header = TRUE)
+usare.LM = lm(mppsf~pnh+pms, data = usare.df)
+plot(fitted.values(usare.LM),rstandard(usare.LM), xlab = "Fitted value",
+     ylab = "Standardised Residuals")
+abline(a = 0, b = 0, lty = 2, col = "red")
+```
+
+It can be seen that as the `fitted.value` increases, the standardised residual varies in a larger range. Thus, there is a heteroskedasticity problem.
+
+## (b) (1 point)
+
+```{r}
+z = 2 * log(abs(usare.LM$residuals))
+auxiliary.LM = lm(z ~ pnh + pms, data = usare.df)
+w.vec = 1 / exp(auxiliary.LM$fitted.values)
+```
+
+## (c) (1 point)
+
+```{r}
+usare.WLS = lm(mppsf~pnh+pms, weights = w.vec, data = usare.df)
+```
+
+## (d) (1 point)
+
+Since `ns` is one of the original data in the calculation of 'mppsf', it may affect the orignal $\epsilon$. Then, we may choose it as a weight.
+
+```{r,fig.align="center", out.width="70%", out.height='70%'}
+plot(fitted.values(usare.WLS),usare.df$ns, xlab = "ns",
+     ylab = "Standardised Residuals")
+```
+
+Moreover, it can be seen that the residual increase as `ns` increase, which indicates the heteroskedasticity may be solved by choosing `ns` as a weight.
+
+## (e) (1 point)
+
+```{r}
+usare.ns.WLS = lm(mppsf~pnh+pms, weights = ns, data = usare.df)
+```
+
+
+## (f) (1 point)
+
+```{r, fig.align="center", out.width="70%", out.height='70%'}
+plot(fitted.values(usare.WLS),rstandard(usare.WLS), xlab = "Fitted value(usare.WLS)",
+     ylab = "Standardised Residuals")
+abline(a = 0, b = 0, lty = 2, col = "red")
+
+plot(fitted.values(usare.ns.WLS),rstandard(usare.ns.WLS), xlab = "Fitted value(usare.ns.WLS)",
+     ylab = "Standardised Residuals")
+abline(a = 0, b = 0, lty = 2, col = "red")
+```
+
+Based on the plots, we find the one of `usare.WLS` model has a better pattern. Thus, the `usare.WLS` model is better.
+
+# Task 3 (5 points)
+
+The data `grossboxoffice` is about yearly gross box office receipts from moives screened in Australia. 
+
+## (a) (1 point)
+
+```{r, fig.align="center", out.width="70%", out.height='70%'}
+gbo.df = read.table("grossboxoffice.txt", header = T)
+gbo.LM = lm(GrossBoxOffice ~ year, data = gbo.df)
+summary(gbo.LM)
+plot(gbo.df$year,rstandard(gbo.LM),xlab = "year",
+     ylab = "Standardised Residuals")
+plot(fitted.values(gbo.LM),rstandard(gbo.LM),xlab = "year",
+     ylab = "Standardised Residuals")
+acf(gbo.LM$residuals)
+plot(gbo.LM$residuals[-length(gbo.LM$residuals)],
+     gbo.LM$residuals[-1],
+     xlab = "Previous", ylab = "Residual")
+```
+
+Based on the acf plot and the plot of previous residual vs residual, the correlation between the residuals can be detected. Moreover, the pattern of residuals is unusual. Thus, `gbo.LM` is invalid.
+
+
+## (b) (1 point)
+
+### AR(1)
+
+```{r}
+yt = gbo.df$GrossBoxOffice
+lag.df = data.frame(x1 = yt[-c(1,32,31)], x2 = yt[-c(1,2,32)], x3 = yt[-c(1,2,3)], 
+                        y = yt[-(32:30)])
+cor(lag.df$x1,lag.df$y)
+```
+
+Since the correlation is high, the AR(1) model is possible.
+
+### AR(2)
+
+```{r}
+cor(lag.df$x2,lag.df$y)
+```
+
+Since the correlation is high, the AR(2) model is possible.
+
+### AR(3)
+
+```{r}
+cor(lag.df$x3,lag.df$y)
+```
+
+Since the correlation is not that high, AR(3) model may be possible.
+
+## (c) (1 point)
+
+```{r}
+gbo.final.M = arima(gbo.df$GrossBoxOffice, order = c(0,1,0),
+xreg =  gbo.df$year)
+pre_1975 = predict(gbo.final.M,newxreg=1975)
+pre_1975
+```
+
+## (d) (1 point)
+
+```{r, fig.align="center", out.width="70%", out.height='70%'}
+plot(gbo.final.M$residuals[-length(gbo.final.M$residuals)],
+    gbo.final.M$residuals[-1],
+     xlab = "Previous", ylab = "Residual")
+acf(gbo.final.M$residuals)
+```
+
+Based on the plot, it can be seen the residuals are independent with each other, which means the model is valid.
+
+## (e) (1 point)
+
+Based on the residual plot in the linear model part, it seems that the model should include the high order term, but in the AR model we do not include. Although the residual looks ok, it may be some problems.
+
+## (f) (1 point)
+
+```{r, fig.align="center", out.width="70%", out.height='70%'}
+plot(1:length(gbo.final.M$residuals),gbo.final.M$residuals,ylab = "residuals")
+```
+
+Outliers are points with index 26, 30.
+
+
+

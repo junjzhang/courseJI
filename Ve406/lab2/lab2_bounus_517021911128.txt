@@ -1,0 +1,41 @@
+#Task 1
+library(MASS)
+xi3 = rnorm(1000)
+xi4 = rnorm(1000)
+sigma = matrix(c(4,3.6,3.6,9),2,2)
+mean = matrix(c(3,1),2,1)
+xi1i2 = mvrnorm(n=1000, mean, sigma)
+xi1 = xi1i2[,1]
+xi2 = xi1i2[,2]
+y = 1+0.1*xi1+0.1*xi2+0.1*xi2**2+0.1*xi3+0.1*xi3**2+rnorm(1000)
+data.df = data.frame(y=y,x1=xi1,x2=xi2,x3=xi3,x4=xi4)
+#Task 2
+t1 = paste(quote(y),"~")
+t2 = quote(x1)
+t3 = paste("+",quote(x2),"+",quote(x3),"+")
+t4 = paste("+",list(quote(I(x2^2))))
+t5 = paste("+",list(quote(I(x3^2))))
+t6 = paste("+",list(quote(I(x4^2))))
+lm.default = function(x){
+  return(lm(formula = x,data = data.df))
+}
+term.lst = list(paste(t1,t2,t3,t4,t5),paste(t1,t3,t4,t5),paste(t1,t2,t3,t5),paste(t1,t2,t3,t4),paste(t1,t2,t3,t4,t5,t6))
+fomula.lst = lapply(term.lst,as.formula)
+names(fomula.lst) = c("m0","m1","m2","m3","m4")
+model.lst = lapply(fomula.lst,lm.default)
+#Task 3
+res.mat = 
+#Task 4
+xi3 = rnorm(1000)
+xi4 = rnorm(1000)
+sigma = matrix(c(4,3.6,3.6,9),2,2)
+mean = matrix(c(3,1),2,1)
+xi1i2 = mvrnorm(n=1000, mean, sigma)
+xi1 = xi1i2[,1]
+xi2 = xi1i2[,2]
+y = 1+0.1*xi1+0.1*xi2+0.1*xi2**2+0.1*xi3+0.1*xi3**2+rnorm(1000)
+data_new.df = data.frame(y=y,x1=xi1,x2=xi2,x3=xi3,x4=xi4)
+lm2.default = function(x){
+  return(lm(x,data = data_new.df)$residuals)
+}
+test.error.vec = lapply(model.lst,predict.default)

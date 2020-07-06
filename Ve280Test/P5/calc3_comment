@@ -1,0 +1,46 @@
+good  // Test bad inputs.
+1.21
+-0.223
+1.23abc
+-a
+b
+0x1234  // Test if hexadecimal input is regarded as invalid input.
+abc123
+e  // Test for bad inputs ends.
+-0 a
+c a
+4
+3
+3
+1
+2
+2 a  // The following part is similar to calc1, so no more comments.
++ a
+- a
+* a
+0 a
+/ a
+r a
+\ a  // the "\" input is intended.
+p
+d a
+n a
++ a
+* a
++ a
+2 a
+/ a
+/ a
+2 a
+/ a
+c a
+0 a
+/  // Tests for "Not enough operands" error.
+-
+*
++
+c a
+n
+d
+p
+q

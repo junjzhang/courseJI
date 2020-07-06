@@ -1,0 +1,14 @@
+TYPE,PRICE,CATEGORY
+H,E,+
+R,C,+
+R,E,+
+H,C,+
+J,C,+
+R,E,-
+J,E,-
+J,C,-
+H,E,+
+J,E,-
+R,E,-
+J,C,+
+R,E,-
