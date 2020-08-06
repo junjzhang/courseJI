@@ -1,0 +1,19 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Author: 
+// Rui Ding
+// Module Name: pcadder
+// Description: 
+// pcadder to implement PC+4
+// Dependencies: 
+//  None
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module pcadder(
+    input [31:0] oldpc,
+    output [31:0] pc_plus_4
+    );
+    
+    assign pc_plus_4 = oldpc + 4;
+endmodule

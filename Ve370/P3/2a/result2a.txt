@@ -1,0 +1,82 @@
+Vivado Simulator 2019.2
+Time resolution is 1 ps
+Cache Vesion: 2a
+Round           0: hit/miss = 0, readWrite = 0, address = 0000000000
+readData = 0x00000000, writeData = 0xxxxxxxxx
+******cache******
+Block 0: V:x, D:1,
+Tag: 00000, Data 0:0x00000003, Data 1:0x00000002, Data 2: 0x00000001, Data 3: 0x00000000
+Block 1: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxxxx, Data 1:0xxxxxxxxx, Data 2: 0xxxxxxxxx, Data 3: 0xxxxxxxxx
+Block 2: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxxxx, Data 1:0xxxxxxxxx, Data 2: 0xxxxxxxxx, Data 3: 0xxxxxxxxx
+Block 3: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxxxx, Data 1:0xxxxxxxxx, Data 2: 0xxxxxxxxx, Data 3: 0xxxxxxxxx
+----------------------------------------------------------
+Round           1: hit/miss = 1, readWrite = 1, address = 0000000000
+readData = 0x00000000, writeData = 0x000000ff
+******cache******
+Block 0: V:x, D:1,
+Tag: 10000, Data 0:0x00000003, Data 1:0x00000002, Data 2: 0x00000001, Data 3: 0x000000ff
+Block 1: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxxxx, Data 1:0xxxxxxxxx, Data 2: 0xxxxxxxxx, Data 3: 0xxxxxxxxx
+Block 2: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxxxx, Data 1:0xxxxxxxxx, Data 2: 0xxxxxxxxx, Data 3: 0xxxxxxxxx
+Block 3: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxxxx, Data 1:0xxxxxxxxx, Data 2: 0xxxxxxxxx, Data 3: 0xxxxxxxxx
+----------------------------------------------------------
+Round           2: hit/miss = 1, readWrite = 0, address = 0000000000
+readData = 0x000000ff, writeData = 0x000000ff
+******cache******
+Block 0: V:x, D:1,
+Tag: 10000, Data 0:0x00000003, Data 1:0x00000002, Data 2: 0x00000001, Data 3: 0x000000ff
+Block 1: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxxxx, Data 1:0xxxxxxxxx, Data 2: 0xxxxxxxxx, Data 3: 0xxxxxxxxx
+Block 2: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxxxx, Data 1:0xxxxxxxxx, Data 2: 0xxxxxxxxx, Data 3: 0xxxxxxxxx
+Block 3: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxxxx, Data 1:0xxxxxxxxx, Data 2: 0xxxxxxxxx, Data 3: 0xxxxxxxxx
+----------------------------------------------------------
+Round           3: hit/miss = 0, readWrite = 0, address = 1000000000
+readData = 0x00000080, writeData = 0x000000ff
+******cache******
+Block 0: V:x, D:1,
+Tag: 01000, Data 0:0x00000083, Data 1:0x00000082, Data 2: 0x00000081, Data 3: 0x00000080
+Block 1: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxxxx, Data 1:0xxxxxxxxx, Data 2: 0xxxxxxxxx, Data 3: 0xxxxxxxxx
+Block 2: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxxxx, Data 1:0xxxxxxxxx, Data 2: 0xxxxxxxxx, Data 3: 0xxxxxxxxx
+Block 3: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxxxx, Data 1:0xxxxxxxxx, Data 2: 0xxxxxxxxx, Data 3: 0xxxxxxxxx
+----------------------------------------------------------
+Round           4: hit/miss = 0, readWrite = 0, address = 0000000000
+readData = 0x000000ff, writeData = 0x000000ff
+******cache******
+Block 0: V:x, D:1,
+Tag: 00000, Data 0:0x00000003, Data 1:0x00000002, Data 2: 0x00000001, Data 3: 0x000000ff
+Block 1: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxxxx, Data 1:0xxxxxxxxx, Data 2: 0xxxxxxxxx, Data 3: 0xxxxxxxxx
+Block 2: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxxxx, Data 1:0xxxxxxxxx, Data 2: 0xxxxxxxxx, Data 3: 0xxxxxxxxx
+Block 3: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxxxx, Data 1:0xxxxxxxxx, Data 2: 0xxxxxxxxx, Data 3: 0xxxxxxxxx
+----------------------------------------------------------
+Round           5: hit/miss = 0, readWrite = 0, address = 1100000000
+readData = 0x000000c0, writeData = 0x000000ff
+******cache******
+Block 0: V:x, D:1,
+Tag: 01100, Data 0:0x000000c3, Data 1:0x000000c2, Data 2: 0x000000c1, Data 3: 0x000000c0
+Block 1: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxxxx, Data 1:0xxxxxxxxx, Data 2: 0xxxxxxxxx, Data 3: 0xxxxxxxxx
+Block 2: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxxxx, Data 1:0xxxxxxxxx, Data 2: 0xxxxxxxxx, Data 3: 0xxxxxxxxx
+Block 3: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxxxx, Data 1:0xxxxxxxxx, Data 2: 0xxxxxxxxx, Data 3: 0xxxxxxxxx
+----------------------------------------------------------
+Round           6: hit/miss = 0, readWrite = 0, address = 1000000000
+readData = 0x00000080, writeData = 0x000000ff
+******cache******
+Block 0: V:x, D:1,
+Tag: 01000, Data 0:0x00000083, Data 1:0x00000082, Data 2: 0x00000081, Data 3: 0x00000080
+Block 1: V:x, D:0,
+Tag: 00000, Data 0:0xxxxxxx

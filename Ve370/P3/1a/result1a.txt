@@ -1,0 +1,64 @@
+Vivado Simulator 2019.2
+Time resolution is 1 ps
+Cache Vesion: 1a
+Round           0: readWrite = 0, address =    0
+hit_flag=0, addr_cache=0000000000,index=0
+addrmem=   0,read_mem=0
+ReadData=         0
+Block0: V=1; Tag=0000; Word0=         0; Word1=         1; Word2=         2; Word3=         3
+Block1: V=0; Tag=0000; Word0=         0; Word1=         0; Word2=         0; Word3=         0
+Block2: V=0; Tag=0000; Word0=         0; Word1=         0; Word2=         0; Word3=         0
+Block3: V=0; Tag=0000; Word0=         0; Word1=         0; Word2=         0; Word3=         0
+Mem[4]=         4, Mem[5]=         5, Mem[6]=         6,Mem[7]=         7
+Mem[8]=         8, Mem[9]=         9, Mem[10]=        10,Mem[11]=        11
+Mem[12]=        12,Mem[13]=        13,Mem[14]=        14,Mem[15]=        15
+Mem[16]=        16,Mem[17]=        17,Mem[18]=        18,Mem[19]=        19
+----------------------------------------------------------
+Round           1: readWrite = 1, address =    0
+hit_flag=1, addr_cache=0000000000,index=0
+addrmem=   0,read_mem=1
+ReadData=         0
+Block0: V=1; Tag=0000; Word0=       255; Word1=         1; Word2=         2; Word3=         3
+Block1: V=0; Tag=0000; Word0=         0; Word1=         0; Word2=         0; Word3=         0
+Block2: V=0; Tag=0000; Word0=         0; Word1=         0; Word2=         0; Word3=         0
+Block3: V=0; Tag=0000; Word0=         0; Word1=         0; Word2=         0; Word3=         0
+Mem[4]=         4, Mem[5]=         5, Mem[6]=         6,Mem[7]=         7
+Mem[8]=         8, Mem[9]=         9, Mem[10]=        10,Mem[11]=        11
+Mem[12]=        12,Mem[13]=        13,Mem[14]=        14,Mem[15]=        15
+Mem[16]=        16,Mem[17]=        17,Mem[18]=        18,Mem[19]=        19
+----------------------------------------------------------
+Round           2: readWrite = 0, address =    0
+hit_flag=1, addr_cache=0000000000,index=0
+addrmem=   0,read_mem=1
+ReadData=       255
+Block0: V=1; Tag=0000; Word0=       255; Word1=         1; Word2=         2; Word3=         3
+Block1: V=0; Tag=0000; Word0=         0; Word1=         0; Word2=         0; Word3=         0
+Block2: V=0; Tag=0000; Word0=         0; Word1=         0; Word2=         0; Word3=         0
+Block3: V=0; Tag=0000; Word0=         0; Word1=         0; Word2=         0; Word3=         0
+Mem[4]=         4, Mem[5]=         5, Mem[6]=         6,Mem[7]=         7
+Mem[8]=         8, Mem[9]=         9, Mem[10]=        10,Mem[11]=        11
+Mem[12]=        12,Mem[13]=        13,Mem[14]=        14,Mem[15]=        15
+Mem[16]=        16,Mem[17]=        17,Mem[18]=        18,Mem[19]=        19
+----------------------------------------------------------
+Round           3: readWrite = 0, address =  512
+hit_flag=0, addr_cache=1000000000,index=0
+addrmem= 512,read_mem=0
+ReadData=       128
+Block0: V=1; Tag=1000; Word0=       128; Word1=       129; Word2=       130; Word3=       131
+Block1: V=0; Tag=0000; Word0=         0; Word1=         0; Word2=         0; Word3=         0
+Block2: V=0; Tag=0000; Word0=         0; Word1=         0; Word2=         0; Word3=         0
+Block3: V=0; Tag=0000; Word0=         0; Word1=         0; Word2=         0; Word3=         0
+Mem[4]=         4, Mem[5]=         5, Mem[6]=         6,Mem[7]=         7
+Mem[8]=         8, Mem[9]=         9, Mem[10]=        10,Mem[11]=        11
+Mem[12]=        12,Mem[13]=        13,Mem[14]=        14,Mem[15]=        15
+Mem[16]=        16,Mem[17]=        17,Mem[18]=        18,Mem[19]=        19
+----------------------------------------------------------
+Round           4: readWrite = 0, address =    0
+hit_flag=0, addr_cache=0000000000,index=0
+addrmem=   0,read_mem=0
+ReadData=       255
+Block0: V=1; Tag=0000; Word0=       255; Word1=         1; Word2=         2; Word3=         3
+Block1: V=0; Tag=0000; Word0=         0; Word1=         0; Word2=         0; Word3=         0
+Block2: V=0; Tag=0000; Word0=         0; Word1=         0; Word2=         0; Word3=         0
+Block3: V=0; Tag=0000; Word0=         0; Word1=         0; Word2=         0; Word3=         0
+Mem[4]=         4, Mem[5]=      
