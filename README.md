@@ -6,3 +6,8 @@ A record of homeworks and projects in JI. Following course are contained:
 * Ve281
 * Ve370
 * Ve445
+* Ve489
+* Ve492
+
+# Usage
+You can refer to these materials to help you for better understanding of these courses.<font color = red> Please Mind the Honor Code! </font>
